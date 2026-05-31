@@ -1,2 +1,4 @@
 ml-latest-small.zip
 README.txt
+__pycache__/
+*.ipynb
