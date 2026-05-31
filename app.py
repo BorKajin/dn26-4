@@ -1,5 +1,12 @@
 import streamlit as st
 
-st.title("Movie Recommender System")
+st.title("Izberi stran")
 
-#st.switch_page("pages\\0_Analiza_podatkov.py")
+if st.button("Analiza podatkov"):
+    st.switch_page("pages/0_Analiza_podatkov.py")
+
+if st.button("Primerjava"):
+    st.switch_page("pages/1_Primerjava_filmov.py")
+
+if st.button("Priporočila"):
+    st.switch_page("pages/2_Priporočila.py")
