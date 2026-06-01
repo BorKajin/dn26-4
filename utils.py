@@ -31,16 +31,20 @@ def _prepare_movies():
     movies.to_parquet(_CACHE_MOVIES, index=False)
     return movies
 
-#@st.cache_data
+@st.cache_data
 def load_data():
     try:
         return pd.read_parquet(_CACHE_DATA)
     except FileNotFoundError:
         return _prepare_data()
 
-#@st.cache_data
+@st.cache_data
 def load_movies():
     try:
         return pd.read_parquet(_CACHE_MOVIES)
     except FileNotFoundError:
         return _prepare_movies()
+    
+@st.cache_data
+def load_ratings():
+    return pd.read_csv("data/ratings.csv")

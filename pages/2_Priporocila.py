@@ -1,11 +1,11 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from utils import load_movies, load_data
+from utils import load_movies, load_data, load_ratings
 from sklearn.linear_model import Lasso
 
 
-st.title("Priporočilni sistem (preprosta različica)")
+st.title("Priporočilni sistem")
 
 if 'user' not in st.session_state:
     st.session_state['user'] = None
@@ -45,7 +45,7 @@ if st.session_state['user_ratings']:
         {"movieId": k, "title": movies.loc[movies['movieId']==k,'title'].iloc[0], "rating": v}
         for k,v in st.session_state['user_ratings'].items()
     ])
-    st.dataframe(df)
+    st.dataframe(df[["title", "user_ratings"]])
 else:
     st.write("Nimate še ocen.")
 
@@ -55,7 +55,7 @@ if len(st.session_state['user_ratings']) < 10:
 else:
     rated_ids = set(st.session_state['user_ratings'].keys())
     X = load_data()
-    ratings = pd.read_csv("data/ratings.csv")
+    ratings = load_ratings()
     movie_ids = sorted(ratings["movieId"].unique())
 
     Xnovi = pd.DataFrame(index=X.index)
